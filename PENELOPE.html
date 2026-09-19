@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EATS BY PENELOPE | Crafted With Love</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FBF4EE',
+                        creamdarter: '#F3E8DF',
+                        chocolate: '#4A2B20',
+                        chocolateDark: '#311A13',
+                        latte: '#D3B39C',
+                        latteDark: '#B89073',
+                        accentGold: '#C86D27',
+                        accentGoldHover: '#A65319',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        cursive: ['Dancing Script', 'cursive'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .cursive-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#4A2B20 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body class="bg-cream text-chocolate font-sans antialiased flex flex-col min-h-screen relative pb-20 md:pb-0">
+
+    <!-- Top Bar Info Header -->
+    <div class="bg-chocolate text-cream text-xs py-2 px-4 border-b border-latte/20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
+                <span><i class="fa-solid fa-location-dot text-accentGold mr-1"></i> Barberton, Location Ext 07</span>
+                <span><i class="fa-regular fa-clock text-accentGold mr-1"></i> 09:00 - 17:00 Daily</span>
+                <span><i class="fa-solid fa-motorcycle text-accentGold mr-1"></i> Delivery Available</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="tel:0713348629" class="hover:text-latte transition"><i class="fa-solid fa-phone mr-1"></i> 0713348629</a>
+                <span>|</span>
+                <a href="https://wa.me/27713348629" target="_blank" class="hover:text-green-400 transition"><i class="fa-brands fa-whatsapp text-green-400 mr-1"></i> WhatsApp Orders</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md shadow-sm border-b border-latte/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex flex-col items-start group">
+                    <span class="text-xs uppercase tracking-widest text-chocolate/70 font-semibold">Eats By</span>
+                    <span class="cursive-font text-3xl md:text-4xl font-bold text-chocolate group-hover:text-accentGold transition">Penelope</span>
+                    <span class="text-[10px] tracking-wider text-latteDark uppercase -mt-1 font-medium">Crafted With Love</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                    <a href="#home" class="hover:text-accentGold transition py-1 border-b-2 border-transparent hover:border-accentGold">Home</a>
+                    <a href="#special" class="text-accentGold font-semibold hover:text-accentGoldHover transition py-1">Wednesday Special</a>
+                    <a href="#menu" class="hover:text-accentGold transition py-1 border-b-2 border-transparent hover:border-accentGold">Menu</a>
+                    <a href="#services" class="hover:text-accentGold transition py-1 border-b-2 border-transparent hover:border-accentGold">Services</a>
+                    <a href="#about" class="hover:text-accentGold transition py-1 border-b-2 border-transparent hover:border-accentGold">About</a>
+                    <a href="#contact" class="hover:text-accentGold transition py-1 border-b-2 border-transparent hover:border-accentGold">Contact</a>
+                </nav>
+
+                <!-- Order Button Header -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="toggleCartDrawer()" class="relative bg-chocolate text-cream px-4 py-2.5 rounded-full hover:bg-chocolateDark transition flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-bag-shopping text-accentGold"></i>
+                        <span>Your Order</span>
+                        <span id="cart-badge" class="bg-accentGold text-white text-xs px-2 py-0.5 rounded-full font-bold ml-1 hidden">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-3 md:hidden">
+                    <button onclick="toggleCartDrawer()" class="relative p-2 text-chocolate">
+                        <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                        <span id="cart-badge-mobile" class="absolute -top-1 -right-1 bg-accentGold text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 text-chocolate focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-creamdarter border-b border-latte/40 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" onclick="closeMobileMenu()" class="block py-2 font-medium border-b border-latte/20">Home</a>
+            <a href="#special" onclick="closeMobileMenu()" class="block py-2 font-bold text-accentGold border-b border-latte/20">🔥 Wednesday Special</a>
+            <a href="#menu" onclick="closeMobileMenu()" class="block py-2 font-medium border-b border-latte/20">Our Menu</a>
+            <a href="#services" onclick="closeMobileMenu()" class="block py-2 font-medium border-b border-latte/20">Catering & Services</a>
+            <a href="#about" onclick="closeMobileMenu()" class="block py-2 font-medium border-b border-latte/20">About Us</a>
+            <a href="#contact" onclick="closeMobileMenu()" class="block py-2 font-medium">Contact & Location</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-b from-cream via-creamdarter to-cream py-16 md:py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-pattern"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-latte/30 px-3 py-1.5 rounded-full text-chocolate text-xs font-semibold uppercase tracking-wider border border-latte/50">
+                        <i class="fa-solid fa-heart text-accentGold"></i>
+                        <span>Crafted With Love in Barberton</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif text-chocolate leading-tight">
+                        Mouthwatering <br>
+                        <span class="cursive-font text-5xl sm:text-6xl lg:text-7xl text-accentGold font-normal">Smash Burgers</span> & Wings
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-chocolate/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Indulge in handcrafted gourmet single & double smash burgers, crispy chicken wings, and signature Cheesy Bacon Jalapeño Fries. Freshly made for pickup or delivery!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#menu" class="bg-chocolate hover:bg-chocolateDark text-cream px-8 py-3.5 rounded-full font-semibold shadow-lg transition duration-200 text-center flex items-center justify-center gap-2">
+                            <span>Explore Menu</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="https://wa.me/27713348629?text=Hi%20Penelope!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg transition duration-200 text-center flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Quick Order WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Highlights Badges -->
+                    <div class="pt-6 grid grid-cols-3 gap-2 border-t border-latte/40 text-center text-xs sm:text-sm">
+                        <div class="p-2">
+                            <i class="fa-solid fa-burger text-accentGold text-xl block mb-1"></i>
+                            <span class="font-semibold text-chocolate">100% Juicy Beef</span>
+                        </div>
+                        <div class="p-2">
+                            <i class="fa-solid fa-motorcycle text-accentGold text-xl block mb-1"></i>
+                            <span class="font-semibold text-chocolate">Fast Delivery</span>
+                        </div>
+                        <div class="p-2">
+                            <i class="fa-solid fa-utensils text-accentGold text-xl block mb-1"></i>
+                            <span class="font-semibold text-chocolate">Private Catering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Showcase using exact uploaded file -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                        <img src="WhatsApp Image 2026-09-19 at 18.20.37 (2).jpeg" alt="Eats By Penelope Gourmet Burger and Wings Combo" class="w-full h-[380px] sm:h-[450px] object-cover hover:scale-105 transition duration-500">
+                        
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-chocolateDark/90 via-chocolateDark/40 to-transparent p-6 text-white">
+                            <span class="bg-accentGold text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Best Seller</span>
+                            <h3 class="text-xl font-bold font-serif">Smash Burger & Wings Combo</h3>
+                            <p class="text-xs text-cream/90 mt-1">Served with Crispy Wings & Cheesy Jalapeño Fries</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-4 sm:left-4 z-20 bg-cream p-4 rounded-2xl shadow-xl border border-latte/40 flex items-center gap-3">
+                        <div class="bg-accentGold/20 p-3 rounded-full text-accentGold">
+                            <i class="fa-solid fa-star text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold uppercase text-chocolate/60">Customer Favorite</div>
+                            <div class="text-sm font-bold text-chocolate">Cheesy Bacon Jalapeño Fries</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Deal Banner -->
+    <section id="special" class="py-12 bg-accentGold text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-chocolate rounded-3xl p-6 sm:p-10 shadow-2xl border-2 border-latte/40 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 text-center md:text-left flex-1">
+                    <div class="inline-flex items-center gap-2 bg-accentGold/20 text-accentGold px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-fire"></i> Weekly Deal Promo
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-serif text-cream">
+                        WEDNESDAY <span class="cursive-font text-accentGold font-normal text-4xl sm:text-5xl">Smash Deal</span>
+                    </h2>
+                    <p class="text-latte text-base sm:text-lg max-w-xl">
+                        Double the taste, unbelievable value! Get 2 Single Smash Burgers for an unbeatable price every Wednesday.
+                    </p>
+                    <div class="flex items-center gap-4 justify-center md:justify-start">
+                        <span class="text-3xl sm:text-4xl font-extrabold text-accentGold">R80</span>
+                        <span class="text-sm text-cream/70 underline">For Two Single Smash Burgers</span>
+                    </div>
+                </div>
+
+                <div class="flex-shrink-0 text-center flex flex-col items-center">
+                    <div class="w-48 h-36 rounded-2xl overflow-hidden border-2 border-accentGold mb-3 shadow-md">
+                        <img src="WhatsApp Image 2026-09-19 at 18.20.37.jpeg" alt="Wednesday Smash Deal Promotional Image" class="w-full h-full object-cover">
+                    </div>
+                    <button onclick="addSpecialToCart()" class="bg-accentGold hover:bg-accentGoldHover text-white text-base font-bold px-6 py-3 rounded-2xl shadow-xl transform hover:scale-105 transition duration-200 flex items-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span>Order Wednesday Deal</span>
+                    </button>
+                    <p class="text-xs text-latte/80 mt-2">Available for Collection & Delivery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 md:py-24 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-accentGold uppercase font-semibold text-xs tracking-widest">Our Fresh Pricelist</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-chocolate mt-1">Delicious Crafted Menu</h2>
+                <div class="w-16 h-1 bg-accentGold mx-auto my-4 rounded-full"></div>
+                <p class="text-chocolate/70 text-sm sm:text-base">Click "Add to Order" to build your custom meal and directly order via WhatsApp!</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex justify-center flex-wrap gap-2 mb-10" id="category-tabs">
+                <button onclick="filterMenu('all')" class="cat-btn active bg-chocolate text-cream px-5 py-2 rounded-full text-sm font-medium transition shadow-sm">All Items</button>
+                <button onclick="filterMenu('burgers')" class="cat-btn bg-creamdarter hover:bg-latte/30 text-chocolate px-5 py-2 rounded-full text-sm font-medium transition">Burgers</button>
+                <button onclick="filterMenu('combos')" class="cat-btn bg-creamdarter hover:bg-latte/30 text-chocolate px-5 py-2 rounded-full text-sm font-medium transition">Wing Combos</button>
+                <button onclick="filterMenu('trios')" class="cat-btn bg-creamdarter hover:bg-latte/30 text-chocolate px-5 py-2 rounded-full text-sm font-medium transition">Trio Combos</button>
+                <button onclick="filterMenu('fries')" class="cat-btn bg-creamdarter hover:bg-latte/30 text-chocolate px-5 py-2 rounded-full text-sm font-medium transition">Loaded Fries</button>
+                <button onclick="filterMenu('sides')" class="cat-btn bg-creamdarter hover:bg-latte/30 text-chocolate px-5 py-2 rounded-full text-sm font-medium transition">Sides</button>
+            </div>
+
+            <!-- Menu Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-grid">
+                <!-- Javascript will dynamically inject menu items here -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-creamdarter/60 border-y border-latte/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="cursive-font text-2xl text-accentGold">Enjoy in the comfort of your home</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-chocolate mt-1">Catering & Services</h2>
+                <p class="text-chocolate/70 text-sm mt-2">Let Penelope make your special occasions extra delicious</p>
+            </div>
+
+            <!-- Exact Services List from uploaded Service Flyer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Card 1 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Small Events & Intimate Gatherings</h3>
+                    <p class="text-chocolate/70 text-sm">Tailored food spreads perfect for cozy home parties, family reunions, and small celebrations.</p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Outside Catering</h3>
+                    <p class="text-chocolate/70 text-sm">Catering for Birthdays, Baby Showers, and special occasions with custom menu options.</p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-wine-glass"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Private Home Dining</h3>
+                    <p class="text-chocolate/70 text-sm">Personal chef services right in your kitchen for an exclusive home dining experience.</p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Anniversaries & Private Date Nights</h3>
+                    <p class="text-chocolate/70 text-sm">Romantic customized food and setup crafted specially for couples and intimate date nights.</p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Grocery Shopping</h3>
+                    <p class="text-chocolate/70 text-sm">Personalized grocery procurement service selecting fresh quality ingredients for your home needs.</p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-cream p-6 rounded-2xl shadow-md border border-latte/30 hover:border-accentGold transition duration-300">
+                    <div class="w-12 h-12 bg-latte/30 text-chocolate rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-chocolate mb-2">Customised Menu Planning</h3>
+                    <p class="text-chocolate/70 text-sm">Work directly with Mpho Penelope to create unique custom menus according to dietary preferences.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="https://wa.me/27713348629?text=Hi%20Penelope!%20I%20would%20like%20to%20inquire%20about%20your%20services." target="_blank" class="inline-flex items-center gap-2 bg-chocolate text-cream px-6 py-3 rounded-full font-semibold hover:bg-chocolateDark transition">
+                    <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                    <span>Inquire About Catering Services</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-accentGold uppercase font-semibold text-xs tracking-widest">Our Story</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-chocolate">Crafted With Love By Mpho Penelope</h2>
+                    <p class="text-chocolate/80 leading-relaxed">
+                        At <strong class="text-chocolate">Eats By Penelope</strong>, every burger is smashed to perfection and every meal is cooked with passion and care. Located in Barberton Ext 07, we take pride in serving high quality, rich-flavored burgers, crispy dunked wings, and loaded fries.
+                    </p>
+                    <p class="text-chocolate/80 leading-relaxed">
+                        Whether you're stopping by for a quick lunch, craving our famous Wednesday Smash Deal, or planning a private event with our catering services, we promise an unforgettable food experience.
+                    </p>
+
+                    <div class="p-4 bg-creamdarter rounded-2xl border-l-4 border-accentGold flex items-center gap-4">
+                        <i class="fa-solid fa-quote-left text-3xl text-accentGold/60"></i>
+                        <p class="italic text-chocolate text-sm font-medium">
+                            "Food is my passion, and seeing our customers happy with every bite is what drives Eats By Penelope."
+                            <br><span class="font-bold non-italic text-xs text-chocolate/70 mt-1 block">— Mpho Penelope</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+                        <img src="WhatsApp Image 2026-09-19 at 18.20.38.jpeg" alt="Loaded Fries and Burger Creation" class="w-full h-80 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-chocolate text-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <div class="space-y-6">
+                    <span class="text-accentGold uppercase font-semibold text-xs tracking-widest">Get In Touch</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold">Contact & Location</h2>
+                    <p class="text-cream/80 text-sm leading-relaxed">
+                        Have a question or want to place an order? Contact us directly or visit our location in Barberton.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-accentGold/20 text-accentGold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-latte">Address / Location</h4>
+                                <p class="text-sm">Barberton | Location Ext 07</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-accentGold/20 text-accentGold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-latte">Operating Hours</h4>
+                                <p class="text-sm">09:00 - 17:00 Daily</p>
+                                <p class="text-xs text-cream/60">Order Pickup Window: 10:00am - 16:00pm</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-accentGold/20 text-accentGold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-latte">Phone & WhatsApp</h4>
+                                <a href="tel:0713348629" class="text-sm hover:underline">071 334 8629</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-accentGold/20 text-accentGold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-latte">Email Address</h4>
+                                <a href="mailto:mphopenny4@gmail.com" class="text-sm hover:underline">mphopenny4@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-accentGold/20 text-accentGold rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-latte">Instagram</h4>
+                                <p class="text-sm">Eats by Penelope</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Box -->
+                <div class="bg-chocolateDark p-8 rounded-3xl border border-latte/20 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-cream mb-4">Ready To Eat?</h3>
+                        <p class="text-sm text-cream/70 mb-6">Click below to send a message directly to Penelope on WhatsApp to order now or request catering details.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <a href="https://wa.me/27713348629" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl text-center flex items-center justify-center gap-2 transition shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>Chat on WhatsApp (0713348629)</span>
+                        </a>
+
+                        <a href="tel:0713348629" class="w-full bg-latte/20 hover:bg-latte/30 text-cream font-medium py-3 px-6 rounded-xl text-center flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>Call 0713348629</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-chocolateDark text-cream/60 py-8 border-t border-latte/10 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Eats By Penelope. All Rights Reserved. Crafted With Love.</p>
+            <p class="mt-2 text-latte/60">Barberton | Location Ext 07 | Owner: Mpho Penelope</p>
+        </div>
+    </footer>
+
+    <!-- Sliding Cart / Order Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 bg-black/60 z-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cart-content" class="w-screen max-w-md bg-cream text-chocolate shadow-2xl flex flex-col transform translate-x-full transition duration-300">
+                
+                <!-- Drawer Header -->
+                <div class="p-4 bg-chocolate text-cream flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-accentGold"></i>
+                        <h3 class="font-serif font-bold text-lg">Your Order Basket</h3>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="p-2 hover:text-accentGold">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Order Type Options -->
+                <div class="bg-creamdarter p-3 border-b border-latte/30 flex justify-center gap-4 text-xs font-semibold">
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                        <input type="radio" name="order-type" value="Delivery" checked onchange="updateOrderType()" class="accent-accentGold">
+                        <span><i class="fa-solid fa-motorcycle text-accentGold"></i> Delivery</span>
+                    </label>
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                        <input type="radio" name="order-type" value="Collection" onchange="updateOrderType()" class="accent-accentGold">
+                        <span><i class="fa-solid fa-store text-accentGold"></i> Collection</span>
+                    </label>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <div class="text-center text-chocolate/50 py-12">
+                        <i class="fa-solid fa-utensils text-4xl mb-3 text-latte"></i>
+                        <p>Your basket is currently empty.</p>
+                        <p class="text-xs mt-1">Browse our menu and add delicious items!</p>
+                    </div>
+                </div>
+
+                <!-- Drawer Footer -->
+                <div class="p-4 bg-creamdarter border-t border-latte/40 space-y-3">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>Total:</span>
+                        <span id="cart-total" class="text-accentGold text-2xl">R0.00</span>
+                    </div>
+
+                    <!-- Customer Notes Input -->
+                    <div>
+                        <input type="text" id="order-notes" placeholder="Special instructions (e.g., extra sauce, address...)" class="w-full text-xs p-2.5 rounded-lg border border-latte/40 bg-cream text-chocolate focus:outline-none focus:border-accentGold">
+                    </div>
+
+                    <button id="whatsapp-send-btn" onclick="sendWhatsAppOrder()" disabled class="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>Send Order via WhatsApp</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Sticky Cart Bar for Mobile -->
+    <div id="mobile-cart-bar" class="fixed bottom-0 inset-x-0 bg-chocolate text-cream p-3 border-t border-latte/30 z-30 flex items-center justify-between md:hidden shadow-lg hidden">
+        <div class="flex items-center gap-2">
+            <span class="bg-accentGold text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center" id="mobile-bar-count">0</span>
+            <span class="font-bold text-sm" id="mobile-bar-total">R0.00</span>
+        </div>
+        <button onclick="toggleCartDrawer()" class="bg-accentGold text-white px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5">
+            <span>View Basket</span>
+            <i class="fa-solid fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <script>
+        // Menu Data with exact image filenames from uploaded photos
+        const menuData = [
+            // Smashed Burgers
+            {
+                id: 'b1',
+                category: 'burgers',
+                name: 'Single Smash Burger with Fries',
+                price: 50,
+                desc: 'Single smashed beef patty with melted cheese & golden fries.',
+                badge: 'Popular',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (2).jpeg'
+            },
+            {
+                id: 'b2',
+                category: 'burgers',
+                name: 'Double Smash Burger with Fries',
+                price: 70,
+                desc: 'Two smashed beef patties loaded with cheese and served with fries.',
+                badge: 'Chef Choice',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.38.jpeg'
+            },
+
+            // Wing Combos
+            {
+                id: 'c1',
+                category: 'combos',
+                name: 'Single Smash Burger + 3 Crispy Wings',
+                price: 80,
+                desc: 'Single smash burger served with 3 seasoned crispy golden chicken wings.',
+                badge: 'Combo',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (2).jpeg'
+            },
+            {
+                id: 'c2',
+                category: 'combos',
+                name: 'Double Smash Burger + 6 Crispy Wings',
+                price: 110,
+                desc: 'Double smash burger accompanied by 6 delicious crispy chicken wings.',
+                badge: 'Hearty Feast',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (2).jpeg'
+            },
+
+            // Trio Combos
+            {
+                id: 't1',
+                category: 'trios',
+                name: 'Single Smash Burger Trio Combo',
+                price: 110,
+                desc: 'Single Smash Burger + 3 Crispy Wings + Cheesy Bacon Jalapeño Fries.',
+                badge: 'Trio Combo',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (3).jpeg'
+            },
+            {
+                id: 't2',
+                category: 'trios',
+                name: 'Double Smash Burger Trio Combo',
+                price: 130,
+                desc: 'Double Smash Burger + 6 Crispy Wings + Cheesy Bacon Jalapeño Fries.',
+                badge: 'Ultimate Trio',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (3).jpeg'
+            },
+
+            // Cheesy Bacon Jalapeño Fries
+            {
+                id: 'f1',
+                category: 'fries',
+                name: 'Cheesy Bacon Jalapeño Fries (Small)',
+                price: 40,
+                desc: 'Crispy golden fries topped with creamy melted cheese, crispy bacon & jalapeño slice kick.',
+                badge: 'Must Try',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (3).jpeg'
+            },
+            {
+                id: 'f2',
+                category: 'fries',
+                name: 'Cheesy Bacon Jalapeño Fries (Big)',
+                price: 60,
+                desc: 'Generous portion of fries loaded with cheese sauce, bacon bites and jalapeños.',
+                badge: 'Large Portion',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (3).jpeg'
+            },
+
+            // Sides
+            {
+                id: 's1',
+                category: 'sides',
+                name: '4 Crispy Wings',
+                price: 40,
+                desc: '4 golden fried crispy wings. (Option for Dunked Wings +R5)',
+                badge: 'Side',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (3).jpeg'
+            },
+            {
+                id: 's2',
+                category: 'sides',
+                name: 'Cheesy Bacon Jalapeño Fries (Side)',
+                price: 20,
+                desc: 'Side order of loaded bacon cheesy jalapeño fries.',
+                badge: 'Side',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.38.jpeg'
+            },
+            {
+                id: 's3',
+                category: 'sides',
+                name: 'Onion Rings',
+                price: 15,
+                desc: 'Crispy batter-fried onion rings.',
+                badge: 'Side',
+                img: 'WhatsApp Image 2026-09-19 at 18.20.37 (2).jpeg'
+            }
+        ];
+
+        // App Cart State
+        let cart = [];
+        let orderType = 'Delivery';
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMenu('all');
+            
+            // Toggle Mobile Navigation Menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Render Menu Cards
+        function renderMenu(categoryFilter = 'all') {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+
+            const filtered = categoryFilter === 'all' 
+                ? menuData 
+                : menuData.filter(item => item.category === categoryFilter);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-cream rounded-2xl overflow-hidden border border-latte/30 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between group';
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-latte/20">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            ${item.badge ? `<span class="absolute top-3 right-3 bg-chocolate text-cream text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${item.badge}</span>` : ''}
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif font-bold text-lg text-chocolate leading-tight">${item.name}</h3>
+                                <span class="text-accentGold font-extrabold text-lg ml-2">R${item.price}</span>
+                            </div>
+                            <p class="text-chocolate/70 text-xs line-clamp-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart('${item.id}')" class="w-full bg-creamdarter hover:bg-accentGold hover:text-white text-chocolate border border-latte/40 font-bold py-2.5 px-4 rounded-xl transition duration-200 flex items-center justify-center gap-2 text-sm shadow-sm">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filter Tabs Handling
+        function filterMenu(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-chocolate', 'text-cream');
+                btn.classList.add('bg-creamdarter', 'text-chocolate');
+            });
+
+            event.currentTarget.classList.remove('bg-creamdarter', 'text-chocolate');
+            event.currentTarget.classList.add('active', 'bg-chocolate', 'text-cream');
+
+            renderMenu(cat);
+        }
+
+        // Cart Actions
+        function addToCart(id) {
+            const menuItem = menuData.find(i => i.id === id);
+            if (!menuItem) return;
+
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...menuItem, qty: 1 });
+            }
+
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function addSpecialToCart() {
+            const specialItem = {
+                id: 'special-wednesday',
+                name: 'Wednesday Smash Deal (2 Single Smash Burgers)',
+                price: 80,
+                qty: 1
+            };
+
+            const existing = cart.find(i => i.id === specialItem.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push(specialItem);
+            }
+
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+
+            updateCartUI();
+        }
+
+        function updateOrderType() {
+            const radios = document.getElementsByName('order-type');
+            for (let r of radios) {
+                if (r.checked) orderType = r.value;
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalElement = document.getElementById('cart-total');
+            const cartBadge = document.getElementById('cart-badge');
+            const cartBadgeMobile = document.getElementById('cart-badge-mobile');
+            const sendBtn = document.getElementById('whatsapp-send-btn');
+            
+            // Mobile bottom bar elements
+            const mobileBar = document.getElementById('mobile-cart-bar');
+            const mobileBarCount = document.getElementById('mobile-bar-count');
+            const mobileBarTotal = document.getElementById('mobile-bar-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // Update Badges
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+                cartBadgeMobile.innerText = totalItems;
+                cartBadgeMobile.classList.remove('hidden');
+                
+                mobileBarCount.innerText = totalItems;
+                mobileBarTotal.innerText = `R${totalPrice.toFixed(2)}`;
+                mobileBar.classList.remove('hidden');
+
+                sendBtn.disabled = false;
+            } else {
+                cartBadge.classList.add('hidden');
+                cartBadgeMobile.classList.add('hidden');
+                mobileBar.classList.add('hidden');
+                sendBtn.disabled = true;
+            }
+
+            totalElement.innerText = `R${totalPrice.toFixed(2)}`;
+
+            // Render Cart Drawer Content
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center text-chocolate/50 py-12">
+                        <i class="fa-solid fa-utensils text-4xl mb-3 text-latte"></i>
+                        <p>Your basket is currently empty.</p>
+                        <p class="text-xs mt-1">Browse our menu and add delicious items!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between bg-creamdarter/50 p-3 rounded-xl border border-latte/30';
+                row.innerHTML = `
+                    <div class="flex-1 pr-2">
+                        <h4 class="font-bold text-sm text-chocolate">${item.name}</h4>
+                        <span class="text-xs font-semibold text-accentGold">R${item.price} each</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="changeQty('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-cream text-chocolate font-bold border border-latte/40 flex items-center justify-center hover:bg-latte/30">-</button>
+                        <span class="text-sm font-bold w-4 text-center">${item.qty}</span>
+                        <button onclick="changeQty('${item.id}', 1)" class="w-7 h-7 rounded-lg bg-cream text-chocolate font-bold border border-latte/40 flex items-center justify-center hover:bg-latte/30">+</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+        }
+
+        // Cart Drawer Toggle
+        function toggleCartDrawer(forceOpen = false) {
+            const drawer = document.getElementById('cart-drawer');
+            const content = document.getElementById('cart-content');
+
+            if (forceOpen || drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                drawer.classList.add('opacity-100');
+                content.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('pointer-events-none', 'opacity-0');
+                drawer.classList.remove('opacity-100');
+                content.classList.add('translate-x-full');
+            }
+        }
+
+        // Format and Send WhatsApp Order directly to 0713348629
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) return;
+
+            const notes = document.getElementById('order-notes').value;
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            let message = `*NEW ORDER - EATS BY PENELOPE*\n`;
+            message += `------------------------------\n`;
+            message += `*Option:* ${orderType}\n\n`;
+            message += `*Items Ordered:*\n`;
+
+            cart.forEach(item => {
+                message += `• ${item.qty}x ${item.name} - R${item.price * item.qty}\n`;
+            });
+
+            message += `\n*TOTAL AMOUNT:* R${totalPrice.toFixed(2)}\n`;
+
+            if (notes.trim() !== '') {
+                message += `*Notes/Instructions:* ${notes}\n`;
+            }
+
+            message += `\nThank you! Please confirm my order.`;
+
+            const encodedMsg = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/27713348629?text=${encodedMsg}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

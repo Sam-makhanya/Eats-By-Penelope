@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eatsbypenelope.co.za/sitemap.xml
